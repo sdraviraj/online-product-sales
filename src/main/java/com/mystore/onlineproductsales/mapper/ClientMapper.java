@@ -10,32 +10,26 @@ public final class ClientMapper {
 
     public static Client toDomain(ClientDto dto) {
 
-        if (dto == null || dto.type() == null) {
-            throw new IllegalArgumentException("Client type must be provided");
+        if (dto == null) {
+            throw new IllegalArgumentException("Client data is missing");
         }
 
-        return switch (dto.type()) {
+        // Professional client
+        if (dto.annualRevenue() != null) {
+            ProfessionalClient pro = new ProfessionalClient();
+            pro.setClientId(dto.clientId());
+            pro.setCompanyName(dto.companyName());
+            pro.setVatNumber(dto.vatNumber());
+            pro.setRegistrationNumber(dto.registrationNumber());
+            pro.setAnnualRevenue(dto.annualRevenue());
+            return pro;
+        }
 
-            case INDIVIDUAL -> new IndividualClient(
-                    dto.clientId(),
-                    dto.firstName(),
-                    dto.lastName()
-            );
-
-            case PROFESSIONAL -> {
-                if (dto.annualRevenue() == null) {
-                    throw new IllegalArgumentException(
-                            "Annual revenue is required for professional client"
-                    );
-                }
-                yield new ProfessionalClient(
-                        dto.clientId(),
-                        dto.companyName(),
-                        dto.vatNumber(),
-                        dto.registrationNumber(),
-                        dto.annualRevenue()
-                );
-            }
-        };
+        // Individual client
+        IndividualClient ind = new IndividualClient();
+        ind.setClientId(dto.clientId());
+        ind.setFirstName(dto.firstName());
+        ind.setLastName(dto.lastName());
+        return ind;
     }
 }

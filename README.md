@@ -14,6 +14,17 @@ The project uses:
 
 ## How to Run
 
+### 📄 API Documentation (Swagger / OpenAPI)
+
+This project includes **interactive API documentation** using `springdoc-openapi`.
+
+Once the application is running, you can access:
+
+### Swagger UI
+A browser-based interface to explore and test the API: http://localhost:8080/swagger-ui/index.html
+### OpenAPI JSON Specification
+Useful for front-end teams, Postman import, or API gateways: http://localhost:8080/v3/api-docs
+
 ### 1. Build
 
 ```bash

@@ -7,9 +7,11 @@ import com.mystore.onlineproductsales.domain.model.ProductEntity;
 import com.mystore.onlineproductsales.domain.model.ProfessionalClient;
 import com.mystore.onlineproductsales.domain.rules.PricingRules;
 import com.mystore.onlineproductsales.repository.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class PriceService {
 
     private final ProductRepository productRepository;
@@ -19,20 +21,26 @@ public class PriceService {
     }
 
     public double getPrice(ProductType productType, Client client) {
+        log.info("Calculating price for product {} and client {}", productType, client.getClientId());
 
         ProductEntity entity = productRepository.findById(productType)
-                .orElseThrow(() -> new IllegalStateException("Product not found: " + productType));
+                .orElseThrow(() -> {
+                    log.error("Product {} not found in DB", productType);
+                    return new IllegalStateException("Product not found: " + productType);
+                });
 
+        double price;
         if (client instanceof IndividualClient) {
-            return entity.getIndividualPrice();
-        }
-
-        if (client instanceof ProfessionalClient proClient) {
+            price = entity.getIndividualPrice();
+        } else if (client instanceof ProfessionalClient proClient) {
             boolean highRevenue = proClient.getAnnualRevenue() > PricingRules.HIGH_REVENUE_THRESHOLD;
-            return highRevenue ? entity.getProHighRevenuePrice() : entity.getProLowRevenuePrice();
+            price = highRevenue ? entity.getProHighRevenuePrice() : entity.getProLowRevenuePrice();
+        } else {
+            throw new IllegalArgumentException("Unknown client type");
         }
 
-        throw new IllegalArgumentException("Unknown client type: " + client.getClass().getSimpleName());
+        log.debug("Resolved price = {}", price);
+        return price;
     }
 }
 
