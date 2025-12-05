@@ -1,0 +1,67 @@
+{
+  "info": {
+    "name": "Online Product Sales API",
+    "_postman_id": "12345678-aaaa-bbbb-cccc-123456789000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Calculate Cart Total (Individual)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/cart/total",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cart",
+            "total"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"client\": {\n    \"type\": \"INDIVIDUAL\",\n    \"clientId\": \"C001\",\n    \"firstName\": \"Ravi\",\n    \"lastName\": \"Kumar\"\n  },\n  \"quantities\": {\n    \"HIGH_END_PHONE\": 1,\n    \"MID_RANGE_PHONE\": 2,\n    \"LAPTOP\": 1\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "Calculate Cart Total (Professional)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/cart/total",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "cart",
+            "total"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"client\": {\n    \"type\": \"PROFESSIONAL\",\n    \"clientId\": \"P001\",\n    \"companyName\": \"MyStore Tech Corp\",\n    \"registrationNumber\": \"REG123\",\n    \"annualRevenue\": 12000000\n  },\n  \"quantities\": {\n    \"HIGH_END_PHONE\": 2,\n    \"LAPTOP\": 1\n  }\n}"
+        }
+      }
+    }
+  ]
+}
