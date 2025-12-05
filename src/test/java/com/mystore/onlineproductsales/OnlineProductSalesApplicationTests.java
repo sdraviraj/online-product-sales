@@ -1,4 +1,4 @@
-package com.mystore.online_product_sales;
+package com.mystore.onlineproductsales;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
