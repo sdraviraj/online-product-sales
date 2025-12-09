@@ -1,5 +1,8 @@
 package com.mystore.onlineproductsales.domain.model;
 
+import lombok.Data;
+
+@Data
 public abstract class Client {
 
     private String clientId;
@@ -11,12 +14,12 @@ public abstract class Client {
         this.clientId = clientId;
     }
 
-    public String getClientId() {
+/*    public String getClientId() {
         return clientId;
     }
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
-    }
+    }*/
 }
 
